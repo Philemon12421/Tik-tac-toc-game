@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Drenchack Games⚡🔥</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>⚡Gymmic 🔥</h1>
+
+  <div class="scoreboard">
+    <div class="score you">
+      YOU<br><span id="playerScore">0</span>
+    </div>
+
+    <div class="score ai">
+      OPPONENT<br><span id="aiScore">0</span>
+    </div>
+
+    <div class="score level">
+      LEVEL<br><span id="level">1</span>
+    </div>
+  </div>
+
+  <!-- GAME MODE CONTROLS -->
+  <div class="mode-controls">
+    <button onclick="setMode('cpu')" class="mode-btn">VS AI</button>
+    <button onclick="setMode('local')" class="mode-btn">2 PLAYERS</button>
+    <button class="mode-btn disabled" title="Coming soon">ONLINE</button>
+  </div>
+</header>
+
+<!-- GAME BOARD -->
+<div class="board" id="board"></div>
+
+<!-- GAME STATUS -->
+<p id="status" class="status-text">YOUR MOVE</p>
+
+<!-- CONTROL BUTTONS -->
+<div class="controls">
+  <button onclick="resetGame()" class="reset-btn">RESET GAME</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
