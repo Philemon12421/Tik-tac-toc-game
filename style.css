@@ -1,193 +1,178 @@
-:root {
-  --gold: #FFD700;
-  --purple: #BF40BF;
-  --bg-dark: #0a001a;
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-hover: rgba(255, 255, 255, 0.1);
-  --cell-bg: #110022;
-  --cell-border: #330066;
-}
+/* =====================
+   GLOBAL / BACKGROUND
+===================== */
 
-/* BASE BODY */
 body {
   margin: 0;
-  padding: 10px;
-  background: radial-gradient(circle at top, #1a0033 0%, var(--bg-dark) 100%);
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   min-height: 100vh;
-  overflow-x: hidden;
-  transition: background 0.3s ease;
-}
-
-/* HEADER */
-.game-header {
-  width: 100%;
-  max-width: 500px;
+  background: radial-gradient(circle at top, #0a0a0a, #000000 70%);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #ffffff;
   text-align: center;
-  margin-bottom: 15px;
 }
 
-.logo {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--gold);
-  text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-  margin: 10px 0;
+/* =====================
+   HEADER / SCOREBOARD
+===================== */
+
+header {
+  margin-top: 20px;
 }
 
-.top-bar {
+h1 {
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.scoreboard {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--glass);
-  padding: 10px 20px;
-  border-radius: 15px;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  backdrop-filter: blur(6px);
-}
-
-/* MINI SCOREBOARD */
-.mini-scoreboard {
-  display: flex;
-  gap: 15px;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.stat span {
-  color: var(--gold);
-}
-
-/* MODE BUTTONS */
-.mode-select {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
   justify-content: center;
+  gap: 25px;
+  margin-top: 15px;
 }
 
-.mode-tab {
-  padding: 6px 14px;
-  font-size: 0.8rem;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.scoreboard div {
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  font-size: 1.1rem;
 }
 
-.mode-tab:hover {
-  background: var(--glass-hover);
-  border-color: var(--purple);
-  color: var(--purple);
-}
+/* =====================
+   BOARD / GRID
+===================== */
 
-.mode-tab.active {
-  background: var(--gold);
-  color: black;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-}
-
-/* GAME BOARD */
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 25px auto;
-  padding: 15px;
-  width: 90%;
-  max-width: 400px;
+  grid-template-columns: repeat(3, 120px);
+  gap: 16px;
+  justify-content: center;
+  margin: 45px auto;
+  padding: 18px;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 20px;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
+/* =====================
+   CELLS
+===================== */
+
 .cell {
-  background: var(--cell-bg);
-  border: 2px solid var(--cell-border);
-  border-radius: 15px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #1a1a1a, #000000);
+  border-radius: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  font-size: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .cell:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-/* CELL COLORS */
+/* =====================
+   X / O COLORS
+===================== */
+
 .cell.x {
-  color: var(--gold);
-  text-shadow: 0 0 20px var(--gold);
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  animation: pop 0.35s ease;
 }
 
 .cell.o {
-  color: var(--purple);
-  text-shadow: 0 0 20px var(--purple);
+  color: #cccccc;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: pop 0.35s ease;
 }
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* =====================
+   WIN EFFECT
+===================== */
 
 .cell.win {
-  background: rgba(255, 215, 0, 0.2);
-  border-color: var(--gold);
-  animation: pulse 0.6s infinite alternate;
+  animation: winPulse 0.9s infinite alternate;
 }
 
-/* RESET BUTTON */
-.reset-btn {
-  padding: 14px 50px;
-  margin-top: 10px;
-  background: linear-gradient(45deg, var(--gold), #ccac00);
-  border: none;
-  border-radius: 50px;
+@keyframes winPulse {
+  from {
+    box-shadow: 0 0 15px #ffffff;
+  }
+  to {
+    box-shadow: 0 0 40px #ffffff, 0 0 60px #ffffff;
+  }
+}
+
+/* =====================
+   STATUS TEXT
+===================== */
+
+#status {
+  font-size: 1.4rem;
+  margin-top: 15px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* =====================
+   BUTTONS
+===================== */
+
+.controls {
+  margin-top: 25px;
+}
+
+button {
+  padding: 14px 28px;
+  font-size: 1rem;
   font-weight: bold;
+  background: linear-gradient(135deg, #ffffff, #cccccc);
+  color: #000000;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.reset-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
 }
 
-/* PULSE ANIMATION */
-@keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
-}
+/* =====================
+   MOBILE
+===================== */
 
-/* MOBILE RESPONSIVENESS */
-@media (max-width: 500px) {
-  .logo {
-    font-size: 1.6rem;
-  }
-
-  .mode-tab {
-    font-size: 0.75rem;
-    padding: 5px 10px;
+@media (max-width: 480px) {
+  .board {
+    grid-template-columns: repeat(3, 90px);
   }
 
   .cell {
-    font-size: 2rem;
+    width: 90px;
+    height: 90px;
+    font-size: 3rem;
   }
 
-  .reset-btn {
-    padding: 12px 35px;
+  button {
+    padding: 12px 24px;
     font-size: 0.9rem;
-  }
-
-  .board {
-    gap: 10px;
-    padding: 10px;
   }
 }
