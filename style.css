@@ -1,146 +1,91 @@
 :root {
-    --neon-cyan: #00ffff;
-    --neon-orange: #ff4500;
-    --bg-dark: #050505;
-    --glass: rgba(255, 255, 255, 0.05);
+  --neon-cyan: #00ffff;
+  --cell-size: min(28vw, 100px); 
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Force a compact layout */
+.game-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
 }
 
-body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background: radial-gradient(circle at center, #101010 0%, #000 100%);
-    color: white;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
+.mini-logo {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  letter-spacing: 2px;
 }
 
-.game-container {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* This container puts Score and Modes side-by-side */
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 95%;
+  max-width: 450px;
 }
 
-/* Header & Glitch Effect */
-h1.glitch-text {
-    font-size: 3rem;
-    font-weight: 900;
-    font-style: italic;
-    text-transform: uppercase;
-    color: var(--neon-cyan);
-    text-shadow: 2px 2px 0px #ff00ff, -2px -2px 0px var(--neon-cyan);
-    margin-bottom: 20px;
+.stat-bar {
+  display: flex;
+  flex: 2; /* Takes more space */
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 5px 10px;
+  justify-content: space-around;
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
-/* Glassmorphism Scoreboard */
-.scoreboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    width: 100%;
-    margin-bottom: 20px;
+.stat-item {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #ccc;
 }
 
-.score-card {
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 10px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
+.stat-item span {
+  display: block;
+  color: var(--neon-cyan);
+  font-weight: bold;
+  font-size: 1rem;
 }
 
-.score-card .label { font-size: 0.7rem; opacity: 0.7; }
-.score-card .value { font-size: 1.5rem; font-weight: bold; }
-
-/* Mode Buttons */
-.mode-controls {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 30px;
+.mini-modes {
+  display: flex;
+  flex: 1; /* Takes less space */
+  gap: 4px;
 }
 
-.btn-mode {
-    background: transparent;
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: 0.3s;
+.tiny-btn {
+  padding: 8px 5px;
+  font-size: 0.7rem;
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.btn-mode.active {
-    background: var(--neon-cyan);
-    color: black;
+.tiny-btn.active {
+  background: var(--neon-cyan);
+  color: #000;
 }
 
-/* The Board */
+/* Board sizing remains responsive */
 .board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    background: rgba(255,255,255,0.03);
-    padding: 15px;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 255, 255, 0.2);
+  display: grid;
+  grid-template-columns: repeat(3, var(--cell-size));
+  grid-template-rows: repeat(3, var(--cell-size));
+  gap: 10px;
+  margin: 15px auto;
 }
 
-.cell {
-    width: clamp(80px, 20vw, 110px);
-    height: clamp(80px, 20vw, 110px);
-    background: #111;
-    border-radius: 12px;
-    border: 1px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
-    cursor: pointer;
-    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.cell:hover {
-    background: #1a1a1a;
-    border-color: var(--neon-cyan);
-    transform: translateY(-3px);
-}
-
-.cell.x { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
-.cell.o { color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-orange); }
-
-/* Footer / Reset */
-.reset-btn {
-    margin-top: 30px;
-    padding: 15px 40px;
-    border-radius: 50px;
-    border: none;
-    background: linear-gradient(90deg, #00ffff, #0088ff);
-    font-weight: bold;
-    letter-spacing: 1px;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
-}
-
-/* Animations */
-@keyframes winGlow {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); filter: brightness(1.5); }
-}
-
-.cell.win {
-    animation: winGlow 0.5s infinite alternate;
-    border: 2px solid white;
+#status {
+  font-size: 0.9rem;
+  margin: 10px 0;
+  font-weight: bold;
+  text-transform: uppercase;
 }
