@@ -1,193 +1,146 @@
-/* =====================
-   GLOBAL / BACKGROUND
-===================== */
+:root {
+    --neon-cyan: #00ffff;
+    --neon-orange: #ff4500;
+    --bg-dark: #050505;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #050030, #000000 70%);
-  animation: bgPulse 8s infinite alternate;
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: #ffffff;
-  text-align: center;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: radial-gradient(circle at center, #101010 0%, #000 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
 }
 
-@keyframes bgPulse {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(25deg); }
+.game-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* =====================
-   HEADER / SCOREBOARD
-===================== */
-
-header {
-  margin-top: 20px;
+/* Header & Glitch Effect */
+h1.glitch-text {
+    font-size: 3rem;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    text-shadow: 2px 2px 0px #ff00ff, -2px -2px 0px var(--neon-cyan);
+    margin-bottom: 20px;
 }
 
-h1 {
-  letter-spacing: 3px;
-  text-shadow: 0 0 15px #00ffff;
-}
-
+/* Glassmorphism Scoreboard */
 .scoreboard {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.scoreboard div {
-  padding: 12px 18px;
-  border-radius: 14px;
-  background: rgba(0, 255, 255, 0.12);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-  font-size: 1.1rem;
+.score-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* =====================
-   BOARD / GRID
-===================== */
+.score-card .label { font-size: 0.7rem; opacity: 0.7; }
+.score-card .value { font-size: 1.5rem; font-weight: bold; }
 
+/* Mode Buttons */
+.mode-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.btn-mode {
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.btn-mode.active {
+    background: var(--neon-cyan);
+    color: black;
+}
+
+/* The Board */
 .board {
-  display: grid;
-  grid-template-columns: repeat(3, 120px);
-  gap: 16px;
-  justify-content: center;
-  margin: 45px auto;
-  padding: 18px;
-  border-radius: 22px;
-  background: rgba(0, 255, 255, 0.05);
-  box-shadow:
-    0 0 25px rgba(0, 255, 255, 0.4),
-    inset 0 0 30px rgba(0, 255, 255, 0.2);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
 }
-
-/* =====================
-   CELLS
-===================== */
 
 .cell {
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, #020202, #000000);
-  border-radius: 18px;
-  border: 2px solid #00ffff;
-  font-size: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+    width: clamp(80px, 20vw, 110px);
+    height: clamp(80px, 20vw, 110px);
+    background: #111;
+    border-radius: 12px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cell:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px #00ffff;
+    background: #1a1a1a;
+    border-color: var(--neon-cyan);
+    transform: translateY(-3px);
 }
 
-/* =====================
-   X (LIGHTNING)
-===================== */
+.cell.x { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
+.cell.o { color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-orange); }
 
-.cell.x {
-  color: #00f6ff;
-  text-shadow:
-    0 0 12px #00f6ff,
-    0 0 30px #00f6ff,
-    0 0 60px #00f6ff;
-  animation: lightningPop 0.35s ease;
+/* Footer / Reset */
+.reset-btn {
+    margin-top: 30px;
+    padding: 15px 40px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(90deg, #00ffff, #0088ff);
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
 }
 
-@keyframes lightningPop {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+/* Animations */
+@keyframes winGlow {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); filter: brightness(1.5); }
 }
-
-/* =====================
-   O (FIRE)
-===================== */
-
-.cell.o {
-  color: #ff4500;
-  text-shadow:
-    0 0 10px #ff6a00,
-    0 0 25px #ff4500,
-    0 0 45px #ff0000;
-  animation: firePop 0.35s ease;
-}
-
-@keyframes firePop {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* =====================
-   WIN EFFECT
-===================== */
 
 .cell.win {
-  animation: winPulse 0.9s infinite alternate;
-}
-
-@keyframes winPulse {
-  from {
-    box-shadow: 0 0 15px #ffffff;
-  }
-  to {
-    box-shadow: 0 0 45px #00ffff, 0 0 70px #00ffff;
-  }
-}
-
-/* =====================
-   STATUS TEXT
-===================== */
-
-#status {
-  font-size: 1.4rem;
-  margin-top: 15px;
-  text-shadow: 0 0 12px #00ffff;
-}
-
-/* =====================
-   BUTTONS
-===================== */
-
-.controls {
-  margin-top: 25px;
-}
-
-button {
-  padding: 14px 28px;
-  font-size: 1rem;
-  font-weight: bold;
-  background: linear-gradient(135deg, #00ffff, #00baba);
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover {
-  transform: scale(1.12);
-  box-shadow: 0 0 35px rgba(0, 255, 255, 0.9);
-}
-
-/* =====================
-   MOBILE
-===================== */
-
-@media (max-width: 480px) {
-  .board {
-    grid-template-columns: repeat(3, 90px);
-  }
-
-  .cell {
-    width: 90px;
-    height: 90px;
-    font-size: 3rem;
-  }
+    animation: winGlow 0.5s infinite alternate;
+    border: 2px solid white;
 }
